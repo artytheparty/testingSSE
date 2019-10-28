@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>My WebApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body onload="OnLoaded();">
+    <div id="head">
+      <h3>My WebApp</h3>
+      <div id="menu">
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+        <a href="/books">Books</a>
+      </div>
+    </div>
+    <div id="main">
+      <h3>
+        Counter:
+        <span id="counter"></span>
+      </h3>
+    </div>
+    <script type="text/javascript">
+      function OnLoaded() {
+        var source = new EventSource("/sse/dashboard");
+        source.onmessage = function(event) {
+          console.log("OnMessage called:");
+          console.dir(event);
+          document.getElementById("counter").innerHTML = event.data;
+        };
+      }
+    </script>
+  </body>
+</html>
